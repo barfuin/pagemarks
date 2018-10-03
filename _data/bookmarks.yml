@@ -1,0 +1,19 @@
+# my bookmarks
+---
+
+- name: 'J2SE 7'
+  url: http://docs.oracle.com/javase/7/docs/api/index.html?java/util/regex/Pattern.html
+  tags: [java, apidoc, reference]
+  notes: >
+      Lorem ipsum dolor
+      sit amet et consectetur
+      adipiscem elit.
+
+- name: 'J2SE 8'
+  url: https://docs.oracle.com/javase/8/docs/api/index.html?java/util/regex/Pattern.html
+  tags: [java, apidoc, reference]
+
+- name: 'Witcher 3 Interactive Map - Velen & Novigrad'
+  url: https://wiiare.in/stuff/w3map/v/#3/75.13/93.06
+  tags: [games, witcher, reference]
+  notes: 'Witcher 3 interactive map of Velen & Novigrad. All locations including shopkeepers, gwent players, merchants, places of power'
