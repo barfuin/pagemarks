@@ -4,16 +4,44 @@
 - name: 'J2SE 7'
   url: http://docs.oracle.com/javase/7/docs/api/index.html?java/util/regex/Pattern.html
   tags: [java, apidoc, reference]
+  date_added: 2018-10-01t21:59:43.10-02:00
   notes: >
-      Lorem ipsum dolor
-      sit amet et consectetur
-      adipiscem elit.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 - name: 'J2SE 8'
   url: https://docs.oracle.com/javase/8/docs/api/index.html?java/util/regex/Pattern.html
   tags: [java, apidoc, reference]
+  date_added: 2018-10-01 2:59:43.10
 
 - name: 'Witcher 3 Interactive Map - Velen & Novigrad'
   url: https://wiiare.in/stuff/w3map/v/#3/75.13/93.06
-  tags: [games, witcher, reference]
+  tags: [games, witcher, reference, reference, reference, Reference]
+  date_added: 2018-10-01
   notes: 'Witcher 3 interactive map of Velen & Novigrad. All locations including shopkeepers, gwent players, merchants, places of power'
+
+- name: 'JWT Parser'
+  url: https://jwt.io
+
+- name: >
+     Title which is way too long - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+     incididunt ut labore et dolore magna aliqua.
+  url: https://host.name/this/url/is/also/way/too/long?text=Lorem%20ipsum%20dolor%20sit%20amet%2C%20consectetur%20adipiscing%20elit%2C%20sed%20do%20eiusmod%20tempor%20incididunt%20ut%20labore%20et%20dolore%20magna%20aliqua.
+  tags: [tag1, tag2, tag3, way-too-long-tag-this-one-is-really-does-it-ever-end, tag4, tag5, tag6, tag7, another-long-tag]
+  notes: >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+- name: >-
+      Stuff for HTML escaping <ü'"&>
+  url: >-
+      https://wiiare.in/stuff/w3map/v/#3/75.13/93.06?%20<ü'"&>
+  tags: [<ü'"&>, ü!, -ü]
+  notes: >-
+      All fields contain this for escaping: <ü'"&>
