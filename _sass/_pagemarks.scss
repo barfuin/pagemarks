@@ -1,0 +1,4 @@
+body {
+    // avoid overlap with the navbar
+    padding-top: $nav-link-height + 2 * $navbar-padding-y;
+}
