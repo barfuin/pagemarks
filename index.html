@@ -10,14 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bookmarks.css">
+    <link rel="stylesheet" href="css/pagemarks.css">
 
     <title>Hello, world!</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">pagemarks.io</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -53,14 +53,53 @@
             <div class="col-12 col-md-6">
                 <div class="card border-primary mb-3">
                     <div class="card-body">
-                        <h4 class="card-title">{{ bookmark.name | xml_escape }}</h4>
+                        {% if bookmark.name.size > 72 %}
+                            <h4 class="card-title" title="{{ bookmark.name | xml_escape }}">{{ bookmark.name | truncate: 72 | xml_escape }}</h4>
+                        {% else %}
+                            <h4 class="card-title">{{ bookmark.name | xml_escape }}</h4>
+                        {% endif %}
+
+                        <!-- TODO shorten url output if needed using CSS overflow -->
                         <p class="card-text"><a href="{{ bookmark.url | uri_escape }}">{{ bookmark.url | xml_escape }}</a></p>
+
                         {% if bookmark.notes %}<p class="card-text">{{ bookmark.notes | xml_escape }}</p>{% endif %}
-                        {% assign tags = bookmark.tags | join: "-p-q-p-q-p-q-p-q-p-q-" | slugify: 'latin' | split: "-p-q-p-q-p-q-p-q-p-q-" | uniq | sort %}
+
+                        {% assign tags = bookmark.tags | join: "-p-q-p-q-p-q-p-q-" | slugify: 'latin' | split: "-p-q-p-q-p-q-p-q-" | uniq | sort %}
                         {% for tag in tags %}
                         <span class="badge badge-primary">{{ tag }}</span>
                         {% endfor %}
-                        {% if bookmark.date_added %}<!-- TODO add bookmark age -->{% endif %}
+
+                        {% if bookmark.date_added %}
+                        <!-- TODO add hover title with absolute date -->
+                        {% comment %} convert our dates to Number of seconds since the epoch {% endcomment %}
+                        {% assign dateStart = bookmark.date_added | date: '%s' %}
+                        {% assign nowTimestamp = 'now' | date: '%s' %}
+                        {% assign diffSeconds = nowTimestamp | minus: dateStart %}
+                        {% if diffSeconds < 60 %}{% comment %} less than 1 minute -> use seconds {% endcomment %}
+                        <p class="card-text">{{ diffSeconds }} s ago</p>
+
+                        {% elsif diffSeconds < 3600 %}{% comment %} less than 1 hour -> use minutes {% endcomment %}
+                        {% assign diffMins = diffSeconds | divided_by: 60 %}
+                        <p class="card-text">{{ diffMins }} min ago</p>
+
+                        {% elsif diffSeconds < 172800 %}{% comment %} less than 48 hours -> use hours {% endcomment %}
+                        {% assign diffHours = diffSeconds | divided_by: 3600 %}
+                        <p class="card-text">{{ diffHours }} hours ago</p>
+
+                        {% elsif diffSeconds < 8640000 %}{% comment %} less than 100 days -> use days {% endcomment %}
+                        {% assign diffDays = diffSeconds | divided_by: 3600 | divided_by: 24 %}
+                        <p class="card-text">{{ diffDays }} days ago</p>
+                        
+                        {% elsif diffSeconds < 63072000 %}{% comment %} less than 2 years -> use months {% endcomment %}
+                        {% assign diffMonths = diffSeconds | divided_by: 3600 | divided_by: 24 | divided_by: 30.42 %}
+                        <p class="card-text">{{ diffMonths }} months ago</p>
+
+                        {% else %}{% comment %} use years {% endcomment %}
+                        {% assign diffYears = diffSeconds | divided_by: 3600 | divided_by: 24 | divided_by: 365 %}
+                        <p class="card-text">{{ diffYears }} years ago</p>
+
+                        {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -70,10 +109,10 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"></script>
     <script src="js/bootstrap-4.1.3.min.js"></script>
 </body>
 
