@@ -45,22 +45,19 @@
         </div>
     </nav>
 
-    <h1>Hello, world!</h1>
-
     <div class="container">
         <div class="row">
             {% for bookmark in site.data.bookmarks %}
             <div class="col-12 col-md-6">
-                <div class="card border-primary mb-3">
+                <div class="card border-primary"{% if bookmark.date_added %} date-added="{{ bookmark.date_added | date: '%s' }}"{% endif %}>
                     <div class="card-body">
-                        {% if bookmark.name.size > 72 %}
-                            <h4 class="card-title" title="{{ bookmark.name | xml_escape }}">{{ bookmark.name | truncate: 72 | xml_escape }}</h4>
+                        {% if bookmark.name.size > 90 %}
+                            <h4 class="card-title" title="{{ bookmark.name | xml_escape }}">{{ bookmark.name | truncate: 90 | xml_escape }}</h4>
                         {% else %}
                             <h4 class="card-title">{{ bookmark.name | xml_escape }}</h4>
                         {% endif %}
 
-                        <!-- TODO shorten url output if needed using CSS overflow -->
-                        <p class="card-text"><a href="{{ bookmark.url | uri_escape }}">{{ bookmark.url | xml_escape }}</a></p>
+                        <p class="card-text text-nowrap text-truncate"><a href="{{ bookmark.url | uri_escape }}">{{ bookmark.url | xml_escape }}</a></p>
 
                         {% if bookmark.notes %}<p class="card-text">{{ bookmark.notes | xml_escape }}</p>{% endif %}
 
@@ -68,38 +65,6 @@
                         {% for tag in tags %}
                         <span class="badge badge-primary">{{ tag }}</span>
                         {% endfor %}
-
-                        {% if bookmark.date_added %}
-                        <!-- TODO add hover title with absolute date -->
-                        {% comment %} convert our dates to Number of seconds since the epoch {% endcomment %}
-                        {% assign dateStart = bookmark.date_added | date: '%s' %}
-                        {% assign nowTimestamp = 'now' | date: '%s' %}
-                        {% assign diffSeconds = nowTimestamp | minus: dateStart %}
-                        {% if diffSeconds < 60 %}{% comment %} less than 1 minute -> use seconds {% endcomment %}
-                        <p class="card-text">{{ diffSeconds }} s ago</p>
-
-                        {% elsif diffSeconds < 3600 %}{% comment %} less than 1 hour -> use minutes {% endcomment %}
-                        {% assign diffMins = diffSeconds | divided_by: 60 %}
-                        <p class="card-text">{{ diffMins }} min ago</p>
-
-                        {% elsif diffSeconds < 172800 %}{% comment %} less than 48 hours -> use hours {% endcomment %}
-                        {% assign diffHours = diffSeconds | divided_by: 3600 %}
-                        <p class="card-text">{{ diffHours }} hours ago</p>
-
-                        {% elsif diffSeconds < 8640000 %}{% comment %} less than 100 days -> use days {% endcomment %}
-                        {% assign diffDays = diffSeconds | divided_by: 3600 | divided_by: 24 %}
-                        <p class="card-text">{{ diffDays }} days ago</p>
-                        
-                        {% elsif diffSeconds < 63072000 %}{% comment %} less than 2 years -> use months {% endcomment %}
-                        {% assign diffMonths = diffSeconds | divided_by: 3600 | divided_by: 24 | divided_by: 30.42 %}
-                        <p class="card-text">{{ diffMonths }} months ago</p>
-
-                        {% else %}{% comment %} use years {% endcomment %}
-                        {% assign diffYears = diffSeconds | divided_by: 3600 | divided_by: 24 | divided_by: 365 %}
-                        <p class="card-text">{{ diffYears }} years ago</p>
-
-                        {% endif %}
-                        {% endif %}
                     </div>
                 </div>
             </div>
