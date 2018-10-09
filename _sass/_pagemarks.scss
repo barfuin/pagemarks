@@ -6,3 +6,40 @@ body {
 .card {
     margin-bottom: $spacer;
 }
+
+nav {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    .oi {
+        top: 2px; // fix vertical centering on open iconic icons in the navbar
+    }
+
+    input {
+        min-width: 80px;
+    }
+
+    .dropdown-menu {
+        position: absolute !important;
+    }
+
+    &.navbar {
+        @include media-breakpoint-down(md) {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    .nav-item {
+        @include media-breakpoint-down(md) {
+            padding-top: $nav-link-padding-y;
+        }
+    }
+}
+
+div.nav-center {
+    @include make-container();
+    @include make-container-max-widths();
+    position: relative;
+    display: flex;
+}
