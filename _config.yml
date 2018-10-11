@@ -1,5 +1,11 @@
-# bookmarks.software - Self-hosted static bookmarks
-# https://github.com/barfuin/bookmarks
+# pagemarks.io - Self-hosted static bookmarks
+# https://github.com/barfuin/pagemarks
+
+# The entries of the 'Pinned' dropdown, so you don't have to type it into the 'Filter' box every time
+pinned:
+    - tag1
+    - any query at all
+    - my-tag-two
 
 markdown: kramdown
 permalink: pretty
@@ -13,7 +19,7 @@ sass:
 # When modifying this file, take care to preserve the indentation. This is YAML ...
 
 # Main Headline, name required, subtitle optional
-name: bookmarks.software
+name: pagemarks
 
 # The 'baseurl' is prepended to all website-internal links.
 # 'baseurl' will often be '', but for a project page on gh-pages, it needs to be the project name.
