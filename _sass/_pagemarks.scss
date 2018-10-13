@@ -16,7 +16,15 @@ nav {
     }
 
     input {
-        min-width: 80px;
+        min-width: 75px;
+    }
+
+    .input-group-text {
+        font-size: 1.5 * $font-size-base;
+        padding-top: 1px;
+        padding-bottom: 0;
+        line-height: $input-line-height - 0.1;
+        cursor: pointer;
     }
 
     .dropdown-menu {

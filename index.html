@@ -40,9 +40,18 @@
                 </div>
             </li>
         </ul>
+        <!--
         <form class="form-inline my-2 my-lg-0 mx-4 w-100">
             <input class="form-control w-100" placeholder="Filter" type="text">
+        </form>  -->
+
+        <form class="my-2 my-lg-0 mx-4 text-nowrap w-100">
+            <div class="input-group text-nowrap">
+                <input class="form-control" placeholder="Filter" aria-label="Filter Query" type="text"><div
+                    class="input-group-append"><span class="input-group-text">&times;</span></div>
+            </div>
         </form>
+
         <ul class="navbar-nav">
             <li class="nav-item dropdown" style="min-width:70px;">
                 <a class="nav-link dropdown-toggle text-nowrap" href="#" id="navbarDropdownColl" role="button"
@@ -53,7 +62,19 @@
                 </div>
             </li>
         </ul>
-        <ul class="navbar-nav ml-4">
+        <ul class="navbar-nav ml-3 ml-md-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-nowrap" href="#" id="navbarDropdownSort" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
+                    class="oi oi-sort-ascending" title="icon name" aria-hidden="true"></span></a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownSort">
+                    <a class="dropdown-item" href="#">Newest</a>
+                    <a class="dropdown-item" href="#">by Title</a>
+                    <a class="dropdown-item" href="#">by URL</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-3">
             <li class="nav-item">
                 <a class="nav-link pr-0" href="#"><span class="oi oi-pencil" title="icon name" aria-hidden="true"></span></a>
             </li>
