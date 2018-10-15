@@ -45,3 +45,18 @@
   tags: [<ü'"&>, ü!, -ü]
   notes: >-
       All fields contain this for escaping: <ü'"&>
+
+- name: 'Implementing JWT Authentication on Spring Boot APIs'
+  url: https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
+  tags: [auth0, jwt, rest, spring-security, spring-boot]
+  date_added: 2018-10-15 16:10:00.000
+
+- name: 'Securing Spring Boot with JWTs'
+  url: https://auth0.com/blog/securing-spring-boot-with-jwts/
+  tags: [auth0, jwt, rest, spring-security, spring-boot, tutorial]
+  date_added: 2018-10-15 16:12:00.000
+
+- name: 'Secure Spring Boot RESTful Service using Auth0 JWT'
+  url: https://o7planning.org/en/11677/secure-spring-boot-restful-service-using-auth0-jwt
+  tags: [auth0, jwt, rest, spring-security, spring-boot, tutorial]
+  date_added: 2018-10-15 16:13:00.000
