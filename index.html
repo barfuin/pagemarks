@@ -83,10 +83,10 @@
 </nav>
 
 <div class="container">
-    <div class="row">
+    <div class="row pagemarks-shuffle-container">
         {% for bookmark in site.data.bookmarks %}
         {% assign tags = bookmark.tags | join: "-p-q-p-q-p-q-p-q-" | slugify: 'latin' | split: "-p-q-p-q-p-q-p-q-" | uniq | sort %}
-        <div class="col-12 col-md-6"{% if bookmark.date_added %} data-date-added="{{ bookmark.date_added | date: '%s' }}"{% endif %}
+        <div class="col-12 col-md-6 pagemarks-item"{% if bookmark.date_added %} data-date-added="{{ bookmark.date_added | date: '%s' }}"{% endif %}
             data-groups='["{{ tags | join: '", "' }}"]'
             data-searchtext="{{ bookmark.name | xml_escape }} {{ bookmark.url | url_decode | downcase | remove_first: "http://" | remove_first: "https://" | remove_first: "ftp://" | xml_escape }}">
             <div class="card border-primary">
@@ -111,7 +111,6 @@
     </div>
 </div>
 
-    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS, then Shuffle -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"></script>
@@ -121,6 +120,7 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Shuffle/5.2.0/shuffle.min.js" crossorigin="anonymous"
         integrity="sha256-YYpWRkO+haXNly5fRVuCaMY3kmFjQ80uPr5MjiGlMhI="></script>
+    <script type="text/javascript" src="js/pagemarks.js"></script>
+    <script type="text/javascript">$(document).ready(pagemarksMain());</script>
 </body>
-
 </html>
