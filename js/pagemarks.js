@@ -9,6 +9,7 @@ function pagemarksMain() {
         itemSelector: '.pagemarks-item',
         sizer: '.pagemarks-shuffle-container:first-child'
     });
+    shuffleInstance.options.filterMode = Shuffle.FilterMode.ALL; // combine tags with AND
 
     const inputForm = $('#pagemarks-filter');
     inputForm.on('submit', null, shuffleInstance, updateFilter);
@@ -20,7 +21,12 @@ function updateFilter(event) {
     event.preventDefault();
     const s = getValueFromInput('pagemarks-filter input', Shuffle.ALL_ITEMS);
     console.log("filter changed - " + s);
-    event.data.filter(s);
+    if (s.indexOf(' ') !== -1) {
+        const t = s.split(' ');
+        event.data.filter(t);
+    } else {
+        event.data.filter(s);
+    }
     return false;
 }
 

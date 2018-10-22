@@ -15,16 +15,23 @@ nav {
         top: 2px; // fix vertical centering on open iconic icons in the navbar
     }
 
-    input {
+    input.form-control {
         min-width: 75px;
+        //border-right: 0;
     }
 
-    .input-group-text {
-        font-size: 1.5 * $font-size-base;
-        padding-top: 1px;
-        padding-bottom: 0;
-        line-height: $input-line-height - 0.1;
-        cursor: pointer;
+    .input-group-append {
+        z-index: 5; // prevent filter input box from bleeding into clear button on focus
+
+        .input-group-text {
+            background-color: $input-bg;
+            color: lighten($input-color, 30%);
+            cursor: pointer;
+        }
+
+        .oi {
+            top: 0;
+        }
     }
 
     .dropdown-menu {
