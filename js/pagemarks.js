@@ -1,6 +1,6 @@
 'use strict';
 
-function pagemarksMain() {
+exports.pagemarksMain = function () {
 
     var Shuffle = window.Shuffle;
     var element = document.querySelector('.pagemarks-shuffle-container');
@@ -37,4 +37,9 @@ function getValueFromInput(pInputFieldName, pDefault) {
         result = v.trim();
     }
     return result;
+}
+
+exports.parseQuery = function (pQuery) {
+    // TODO
+    return [];
 }

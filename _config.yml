@@ -9,7 +9,7 @@ pinned:
 
 markdown: kramdown
 permalink: pretty
-exclude: ['README.*', 'LICENSE']
+exclude: ['README.*', 'LICENSE', 'package*.json', 'node_modules', 'test']
 sass:
     style: expanded
     #style: compressed

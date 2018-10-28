@@ -2,3 +2,4 @@
 /_support/
 /.sass-cache/
 /.jekyll-metadata
+/node_modules/
