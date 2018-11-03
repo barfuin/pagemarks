@@ -1,16 +1,23 @@
 {
     "editor.rulers": [120],
-    "editor.autoClosingBrackets": false,
+    "editor.wordWrapColumn": 120,
+    "editor.autoClosingBrackets": "never",
     "editor.codeLens": false,
     "editor.dragAndDrop": false,
     "editor.formatOnSave": true,
-    "editor.wordWrapColumn": 120,
     "files.exclude": {
         "**/.git": true,
         "**/.idea": true,
         "**/_site": true,
         "**/_support": true,
-        "**/.sass-cache": true
+        "**/.nyc_output": true,
+        "**/.sass-cache": true,
+        "**/node_modules": true
+    },
+    "mocha.logVerbose": true,
+    "mocha.coverage": {
+        "activeOnStart": false,
+        "enable": false
     },
     "[html]": {
         "editor.formatOnSave": false
