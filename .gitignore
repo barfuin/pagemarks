@@ -2,4 +2,5 @@
 /_support/
 /.sass-cache/
 /.jekyll-metadata
+/.nyc_output/
 /node_modules/
