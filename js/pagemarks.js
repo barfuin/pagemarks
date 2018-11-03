@@ -39,7 +39,107 @@ function getValueFromInput(pInputFieldName, pDefault) {
     return result;
 }
 
+
+const ParserState = Object.freeze({'NEUTRAL':1, 'WORD': 2, 'QUOTED':3, 'TAG':4});
+
 exports.parseQuery = function (pQuery) {
-    // TODO
-    return [];
+    let result = {'words': [], 'tags': []};
+    if (typeof(pQuery) !== 'undefined' && pQuery !== null) {
+        if (typeof(pQuery) === 'string' && pQuery.trim().length > 0) {
+            result = pq(pQuery.trim());
+        }
+    }
+    result.isEmpty = result.words.isEmpty && result.tags.isEmpty;
+    return Object.freeze(result);
+}
+
+function pq(pString) {
+    let parserState = ParserState.NEUTRAL;
+    let currentTerm = '';
+    const result = {'words': [], 'tags': []};
+
+    for (let pos = 0; pos < pString.length; pos++)
+    {
+        const c = pString[pos];
+        if (parserState === ParserState.NEUTRAL) {
+            if (c === '"') {
+                parserState = ParserState.QUOTED;
+            }
+            else if (c === '[') {
+                parserState = ParserState.TAG;
+            }
+            else if (c !== ' ' && c !== '\t') {
+                parserState = ParserState.WORD;
+                currentTerm += c;
+            }
+        }
+        else if (parserState === ParserState.WORD) {
+            if (c !== ' ' && c !== '\t') {
+                currentTerm += c;
+            } else {
+                if (currentTerm.length > 0) {
+                    result.words.push(currentTerm);
+                    currentTerm = '';
+                }
+                parserState = ParserState.NEUTRAL;
+            }
+        }
+        else if (parserState === ParserState.QUOTED) {
+            if (isClosingQuote(pString, pos)) {
+                if (currentTerm.length > 0) {
+                    result.words.push(currentTerm);
+                    currentTerm = '';
+                }
+                parserState = ParserState.NEUTRAL;
+            }
+            else {
+                currentTerm += c;
+            }
+        }
+        else if (parserState === ParserState.TAG) {
+            if (c === ']') {
+                if (currentTerm.length > 0) {
+                    result.tags.push(currentTerm);
+                    currentTerm = '';
+                }
+                parserState = ParserState.NEUTRAL;
+            }
+            else {
+                currentTerm += c;
+            }
+        }
+        else {
+            throw new Error('Unknown parser state: ' + parserState);
+        }
+    }
+    if (currentTerm.length > 0) {
+        result.words.push(currentTerm);
+    }
+    return result;
+}
+
+
+function isClosingQuote(pString, pPos) {
+    let result = false;
+    if (pString[pPos] === '"') {
+        let bsCount = 0;
+        for(let p = pPos - 1; p >= 0; p--) {
+            if (pString[p] === '\\') {
+                bsCount++;
+            } else {
+                break;
+            }
+        }
+        if (bsCount % 2 === 0) {   // quote is not escaped
+            if (pPos === pString.length - 1) {
+                result = true;
+            } else {
+                const c = pString[pPos + 1];
+                if (c === ' ' || c === '\t') {
+                    result = true;
+                }
+            }
+        }
+    }
+    return result;
 }
