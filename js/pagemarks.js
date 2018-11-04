@@ -9,7 +9,6 @@ exports.pagemarksMain = function () {
         itemSelector: '.pagemarks-item',
         sizer: '.pagemarks-shuffle-container:first-child'
     });
-    shuffleInstance.options.filterMode = Shuffle.FilterMode.ALL; // combine tags with AND
 
     const inputForm = $('#pagemarks-filter');
     inputForm.on('submit', null, shuffleInstance, updateFilter);
@@ -19,16 +18,17 @@ exports.pagemarksMain = function () {
 
 function updateFilter(event) {
     event.preventDefault();
-    const s = getValueFromInput('pagemarks-filter input', Shuffle.ALL_ITEMS);
-    console.log("filter changed - " + s);
-    if (s.indexOf(' ') !== -1) {
-        const t = s.split(' ');
-        event.data.filter(t);
+    const filterExpression = getValueFromInput('pagemarks-filter input', '');
+    const filterParsed = exports.parseQuery(filterExpression);
+    console.log("filter changed - " + JSON.stringify(filterParsed));
+    if (filterParsed.isEmpty) {
+        event.data.filter(Shuffle.ALL_ITEMS);
     } else {
-        event.data.filter(s);
+        event.data.filter(pElement => shuffleFilter(pElement, filterParsed));
     }
     return false;
 }
+
 
 function getValueFromInput(pInputFieldName, pDefault) {
     let result = pDefault;
@@ -40,40 +40,68 @@ function getValueFromInput(pInputFieldName, pDefault) {
 }
 
 
-const ParserState = Object.freeze({'NEUTRAL':1, 'WORD': 2, 'QUOTED':3, 'TAG':4});
+function shuffleFilter(pElement, pFilter) {
+    let result = true;
+    if (pFilter.tags.length > 0) {
+        const elementGroups = JSON.parse(pElement.getAttribute('data-groups'));
+        result = pFilter.tags.every(tag => elementGroups.includes(tag));
+    }
+    if (result && pFilter.words.length > 0) {
+        const searchText = pElement.getAttribute('data-searchtext');
+        result = pFilter.words.every(word => searchText.indexOf(word) !== -1);
+    }
+    return result;
+}
+
+
+const ParserState = Object.freeze({
+    'NEUTRAL': 1,
+    'WORD': 2,
+    'QUOTED': 3,
+    'TAG': 4
+});
+
 
 exports.parseQuery = function (pQuery) {
-    let result = {'words': [], 'tags': []};
-    if (typeof(pQuery) !== 'undefined' && pQuery !== null) {
-        if (typeof(pQuery) === 'string' && pQuery.trim().length > 0) {
+    let result = {
+        'words': [],
+        'tags': []
+    };
+    if (typeof (pQuery) !== 'undefined' && pQuery !== null) {
+        if (typeof (pQuery) === 'string' && pQuery.trim().length > 0) {
             result = pq(pQuery.trim());
+            for (let i = 0; i < result.words.length; i++) {
+                result.words[i] = result.words[i].toLowerCase();
+            }
+            for (let i = 0; i < result.tags.length; i++) {
+                result.tags[i] = result.tags[i].toLowerCase();
+            }
         }
     }
-    result.isEmpty = result.words.isEmpty && result.tags.isEmpty;
+    result.isEmpty = result.words.length === 0 && result.tags.length === 0;
     return Object.freeze(result);
 }
 
 function pq(pString) {
     let parserState = ParserState.NEUTRAL;
     let currentTerm = '';
-    const result = {'words': [], 'tags': []};
+    const result = {
+        'words': [],
+        'tags': []
+    };
 
-    for (let pos = 0; pos < pString.length; pos++)
-    {
+    for (let pos = 0; pos < pString.length; pos++) {
         const c = pString[pos];
         if (parserState === ParserState.NEUTRAL) {
             if (c === '"') {
                 parserState = ParserState.QUOTED;
-            }
-            else if (c === '[') {
+            } else if (c === '[') {
                 parserState = ParserState.TAG;
-            }
-            else if (c !== ' ' && c !== '\t') {
+            } else if (c !== ' ' && c !== '\t') {
                 parserState = ParserState.WORD;
                 currentTerm += c;
             }
-        }
-        else if (parserState === ParserState.WORD) {
+        } else if (parserState === ParserState.WORD) {
             if (c !== ' ' && c !== '\t') {
                 currentTerm += c;
             } else {
@@ -83,32 +111,27 @@ function pq(pString) {
                 }
                 parserState = ParserState.NEUTRAL;
             }
-        }
-        else if (parserState === ParserState.QUOTED) {
+        } else if (parserState === ParserState.QUOTED) {
             if (isClosingQuote(pString, pos)) {
                 if (currentTerm.length > 0) {
                     result.words.push(currentTerm);
                     currentTerm = '';
                 }
                 parserState = ParserState.NEUTRAL;
-            }
-            else {
+            } else {
                 currentTerm += c;
             }
-        }
-        else if (parserState === ParserState.TAG) {
+        } else if (parserState === ParserState.TAG) {
             if (c === ']') {
                 if (currentTerm.length > 0) {
                     result.tags.push(currentTerm);
                     currentTerm = '';
                 }
                 parserState = ParserState.NEUTRAL;
-            }
-            else {
+            } else {
                 currentTerm += c;
             }
-        }
-        else {
+        } else {
             throw new Error('Unknown parser state: ' + parserState);
         }
     }
@@ -123,14 +146,14 @@ function isClosingQuote(pString, pPos) {
     let result = false;
     if (pString[pPos] === '"') {
         let bsCount = 0;
-        for(let p = pPos - 1; p >= 0; p--) {
+        for (let p = pPos - 1; p >= 0; p--) {
             if (pString[p] === '\\') {
                 bsCount++;
             } else {
                 break;
             }
         }
-        if (bsCount % 2 === 0) {   // quote is not escaped
+        if (bsCount % 2 === 0) { // quote is not escaped
             if (pPos === pString.length - 1) {
                 result = true;
             } else {

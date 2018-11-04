@@ -89,7 +89,8 @@
         {% assign tags = bookmark.tags | join: "-p-q-p-q-p-q-p-q-" | slugify: 'latin' | split: "-p-q-p-q-p-q-p-q-" | uniq | sort %}
         <div class="col-12 col-md-6 pagemarks-item"{% if bookmark.date_added %} data-date-added="{{ bookmark.date_added | date: '%s' }}"{% endif %}
             data-groups='["{{ tags | join: '", "' }}"]'
-            data-searchtext="{{ bookmark.name | xml_escape }} {{ bookmark.url | url_decode | downcase | remove_first: "http://" | remove_first: "https://" | remove_first: "ftp://" | xml_escape }}">
+            data-searchtext="{{ bookmark.name | downcase | xml_escape }} {% for tag in tags %}{{ tag }} {% endfor %}{{
+                bookmark.url | url_decode | downcase | remove_first: "http://" | remove_first: "https://" | remove_first: "ftp://" | xml_escape }}">
             <div class="card border-primary">
                 <div class="card-body">
                     {% if bookmark.name.size > 90 %}
