@@ -12,6 +12,12 @@ exports.pagemarksMain = function () {
 
     const inputForm = $('#pagemarks-filter');
     inputForm.on('submit', null, shuffleInstance, updateFilter);
+    const queryStringParam = getQueryStringParameters()['q'];
+    const presetFilter = queryStringParam ? decodeURIComponent(queryStringParam) : '';
+    if (presetFilter) {
+        inputForm.find('input')[0].setAttribute('value', presetFilter);
+        inputForm.submit();
+    }
 }
 
 
@@ -22,11 +28,43 @@ function updateFilter(event) {
     const filterParsed = exports.parseQuery(filterExpression);
     console.log("filter changed - " + JSON.stringify(filterParsed));
     if (filterParsed.isEmpty) {
+        updateQueryStringInBrowser('');
         event.data.filter(Shuffle.ALL_ITEMS);
     } else {
+        updateQueryStringInBrowser(query2String(filterParsed));
         event.data.filter(pElement => shuffleFilter(pElement, filterParsed));
     }
     return false;
+}
+
+
+function updateQueryStringInBrowser(pNewQueryString) {
+    if ('URLSearchParams' in window) {
+        var searchParams = new URLSearchParams(window.location.search);
+        var newRelativePathQuery = window.location.pathname;
+        if (pNewQueryString.length > 0) {
+            searchParams.set("q", pNewQueryString);
+            newRelativePathQuery += '?' + searchParams.toString();
+        }
+        history.replaceState(null, '', newRelativePathQuery);
+    }
+}
+
+
+function query2String(pFilterQuery) {
+    let result = '';
+    if (pFilterQuery.tags.length > 0) {
+        for (let i = 0; i < pFilterQuery.tags.length; i++) {
+            result += '[' + pFilterQuery.tags[i] + '] ';
+        }
+    }
+    if (pFilterQuery.words.length > 0) {
+        result += pFilterQuery.words.join(' ');
+    }
+    if (result.endsWith(' ')) {
+        result = result.slice(0, result.length - 1);
+    }
+    return result;
 }
 
 
@@ -165,4 +203,25 @@ function isClosingQuote(pString, pPos) {
         }
     }
     return result;
+}
+
+
+function getQueryStringParameters() {
+    const queryString = window.location.search.substr(1);
+    const result = {};
+    if (queryString != null && queryString != "") {
+        const prmarr = queryString.split("&");
+        for (let i = 0; i < prmarr.length; i++) {
+            const tmparr = prmarr[i].split("=");
+            result[tmparr[0]] = tmparr[1].replace(/\+/g, '%20');
+        }
+    }
+    return result;
+}
+
+
+exports.pagemarksClearFilter = function () {
+    const inputForm = $('#pagemarks-filter');
+    inputForm.find('input')[0].value = '';
+    inputForm.submit();
 }

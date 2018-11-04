@@ -40,16 +40,13 @@
                 </div>
             </li>
         </ul>
-        <!--
-        <form class="form-inline my-2 my-lg-0 mx-4 w-100">
-            <input class="form-control w-100" placeholder="Filter" type="text">
-        </form>  -->
 
         <form id="pagemarks-filter" class="my-2 my-lg-0 mx-4 text-nowrap w-100">
             <div class="input-group text-nowrap">
                 <input class="form-control" placeholder="Filter" type="text" aria-label="Filter Query"><div
-                    class="input-group-append"><span class="input-group-text"><span class="oi oi-circle-x"
-                    title="Clear Filter" aria-hidden="true"></span></span></div>
+                    class="input-group-append" onclick="exports.pagemarksClearFilter()"><span
+                    class="input-group-text"><span class="oi oi-circle-x" title="Clear Filter"
+                    aria-hidden="true"></span></span></div>
             </div>
         </form>
 
@@ -104,7 +101,8 @@
                     {% if bookmark.notes %}<p class="card-text">{{ bookmark.notes | xml_escape }}</p>{% endif %}
 
                     {% for tag in tags %}
-                    <span class="badge badge-primary">{{ tag }}</span>
+                    <a href="{{ site.baseurl | append: "/index.html?q=[" | append: tag | append: "]" | xml_escape
+                        }}"><span class="badge badge-primary">{{ tag }}</span></a>
                     {% endfor %}
                 </div>
             </div>
@@ -124,6 +122,6 @@
         integrity="sha256-YYpWRkO+haXNly5fRVuCaMY3kmFjQ80uPr5MjiGlMhI="></script>
     <script type="text/javascript"> var exports = {}; </script>
     <script type="text/javascript" src="js/pagemarks.js"></script>
-    <script type="text/javascript">$(document).ready(exports.pagemarksMain());</script>
+    <script type="text/javascript">$(window).on('load', exports.pagemarksMain());</script>
 </body>
 </html>
