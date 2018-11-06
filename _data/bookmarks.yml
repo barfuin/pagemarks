@@ -1,62 +1,73 @@
 # my bookmarks
 ---
 
-- name: 'J2SE 7'
-  url: http://docs.oracle.com/javase/7/docs/api/index.html?java/util/regex/Pattern.html
-  tags: [java, apidoc, reference]
-  date_added: 2018-10-01t21:59:43.10-02:00
-  notes: >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+# The entries of the 'Pinned' dropdown, so you don't have to type it into the 'Filter' box every time
+pinned-filters:
+    - '[reference]'
+    - '[java] oracle'
 
-- name: 'J2SE 8'
-  url: https://docs.oracle.com/javase/8/docs/api/index.html?java/util/regex/Pattern.html
-  tags: [JAVA, apidoc, reference]
-  date_added: 2018-10-01 2:59:43.10
+bookmarks:
+  - name: 'J2SE 7'
+    url: http://docs.oracle.com/javase/7/docs/api/index.html?java/util/regex/Pattern.html
+    tags: [java, apidoc, reference]
+    date_added: 2018-10-01t21:59:43.10-02:00
+    notes: >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-- name: 'Witcher 3 Interactive Map - Velen & Novigrad'
-  url: https://wiiare.in/stuff/w3map/v/#3/75.13/93.06
-  tags: [games, witcher, reference, reference, reference, Reference]
-  date_added: 2018-10-01
-  notes: 'Witcher 3 interactive map of Velen & Novigrad. All locations including shopkeepers, gwent players, merchants, places of power'
+  - name: 'J2SE 8'
+    url: https://docs.oracle.com/javase/8/docs/api/index.html?java/util/regex/Pattern.html
+    tags: [JAVA, apidoc, reference]
+    date_added: 2018-10-01 2:59:43.10
 
-- name: 'JWT Parser'
-  url: https://jwt.io
+  - name: 'Java is still available at zero-cost'
+    url: https://blog.joda.org/2018/08/java-is-still-available-at-zero-cost.html
+    tags: [java]
+    date_added: 2018-11-01 2:59:43.10
 
-- name: >
-     Title which is way too long - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-     incididunt ut labore et dolore magna aliqua.
-  url: https://host.name/this/url/is/also/way/too/long?text=Lorem%20ipsum%20dolor%20sit%20amet%2C%20consectetur%20adipiscing%20elit%2C%20sed%20do%20eiusmod%20tempor%20incididunt%20ut%20labore%20et%20dolore%20magna%20aliqua.
-  tags: [tag1, tag2, tag3, way-too-long-tag-this-one-is-really-does-it-ever-end, tag4, tag5, tag6, tag7, another-LONG-tag]
-  notes: >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  - name: 'Witcher 3 Interactive Map - Velen & Novigrad'
+    url: https://wiiare.in/stuff/w3map/v/#3/75.13/93.06
+    tags: [games, witcher, reference, reference, reference, Reference]
+    date_added: 2018-10-01
+    notes: 'Witcher 3 interactive map of Velen & Novigrad. All locations including shopkeepers, gwent players, merchants, places of power'
 
-- name: >-
-      Stuff for HTML escaping <ü'"&>
-  url: >-
-      https://wiiare.in/stuff/w3map/v/#3/75.13/93.06?%20<ü'"&>
-  tags: [<ü'"&>, ü!, -ü]
-  notes: >-
-      All fields contain this for escaping: <ü'"&>
+  - name: 'JWT Parser'
+    url: https://jwt.io
 
-- name: 'Implementing JWT Authentication on Spring Boot APIs'
-  url: https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
-  tags: [auth0, jwt, rest, spring-security, spring-boot]
-  date_added: 2018-10-15 16:10:00.000
+  - name: >
+        Title which is way too long - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        incididunt ut labore et dolore magna aliqua.
+    url: https://host.name/this/url/is/also/way/too/long?text=Lorem%20ipsum%20dolor%20sit%20amet%2C%20consectetur%20adipiscing%20elit%2C%20sed%20do%20eiusmod%20tempor%20incididunt%20ut%20labore%20et%20dolore%20magna%20aliqua.
+    tags: [tag1, tag2, tag3, way-too-long-tag-this-one-is-really-does-it-ever-end, tag4, tag5, tag6, tag7, another-LONG-tag]
+    notes: >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-- name: 'Securing Spring Boot with JWTs'
-  url: https://auth0.com/blog/securing-spring-boot-with-jwts/
-  tags: [auth0, jwt, rest, spring-security, spring-boot, tutorial]
-  date_added: 2018-10-15 16:12:00.000
+  - name: >-
+        Stuff for HTML escaping <ü'"&>
+    url: >-
+        https://wiiare.in/stuff/w3map/v/#3/75.13/93.06?%20<ü'"&>
+    tags: [<ü'"&>, ü!, -ü]
+    notes: >-
+        All fields contain this for escaping: <ü'"&>
 
-- name: 'Secure Spring Boot RESTful Service using Auth0 JWT'
-  url: https://o7planning.org/en/11677/secure-spring-boot-restful-service-using-auth0-jwt
-  tags: [auth0, jwt, rest, spring-security, spring-boot, tutorial]
-  date_added: 2018-10-15 16:13:00.000
+  - name: 'Implementing JWT Authentication on Spring Boot APIs'
+    url: https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
+    tags: [auth0, jwt, rest, spring-security, spring-boot]
+    date_added: 2018-10-15 16:10:00.000
+
+  - name: 'Securing Spring Boot with JWTs'
+    url: https://auth0.com/blog/securing-spring-boot-with-jwts/
+    tags: [auth0, jwt, rest, spring-security, spring-boot, tutorial]
+    date_added: 2018-10-15 16:12:00.000
+
+  - name: 'Secure Spring Boot RESTful Service using Auth0 JWT'
+    url: https://o7planning.org/en/11677/secure-spring-boot-restful-service-using-auth0-jwt
+    tags: [auth0, jwt, rest, spring-security, spring-boot, tutorial]
+    date_added: 2018-10-15 16:13:00.000
