@@ -1,12 +1,6 @@
 # pagemarks.io - Self-hosted static bookmarks
 # https://github.com/barfuin/pagemarks
 
-# The entries of the 'Pinned' dropdown, so you don't have to type it into the 'Filter' box every time
-pinned:
-    - tag1
-    - any query at all
-    - my-tag-two
-
 markdown: kramdown
 permalink: pretty
 exclude: ['README.*', 'LICENSE', 'package*.json', 'node_modules', 'test']

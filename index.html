@@ -82,7 +82,7 @@
 
 <div class="container">
     <div class="row pagemarks-shuffle-container">
-        {% for bookmark in site.data.bookmarks %}
+        {% for bookmark in site.data.bookmarks.bookmarks %}
         {% assign tags = bookmark.tags | join: "-p-q-p-q-p-q-p-q-" | slugify: 'latin' | split: "-p-q-p-q-p-q-p-q-" | uniq | sort %}
         <div class="col-12 col-md-6 pagemarks-item"{% if bookmark.date_added %} data-date-added="{{ bookmark.date_added | date: '%s' }}"{% endif %}
             data-groups='["{{ tags | join: '", "' }}"]'
