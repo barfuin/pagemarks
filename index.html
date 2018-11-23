@@ -23,19 +23,19 @@
 
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                {% if site.pinned %}
-                    {% if site.pinned.size > 0 %}           {% comment %} Avoid dereferencing when nil {% endcomment %}
+                {% if site.data.bookmarks.pinned-filters %}
+                    {% if site.data.bookmarks.pinned-filters.size > 0 %}{% comment %} Avoid dereferencing when nil {% endcomment %}
                         {% assign enableDropdown = true %}
                     {% endif %}
                 {% else %}
                     {% assign enableDropdown = false %}
                 {% endif %}
-                <a class="nav-link dropdown-toggle text-nowrap{% if enableDropdown == false %} disabled{% endif %}" href="#" id="navbarDropdownPinned" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-book"
-                    title="icon name" aria-hidden="true"></span></a>
+                <a class="nav-link dropdown-toggle text-nowrap{% if enableDropdown == false %} disabled{% endif %}"
+                    href="#" id="navbarDropdownPinned" role="button" data-toggle="dropdown" aria-haspopup="true"
+                    title="Pinned Filters" aria-expanded="false"><span class="oi oi-book" aria-hidden="true"></span></a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownPinned">
-                    {% for q in site.pinned %}
-                    <a class="dropdown-item" href="#">{{ q }}</a>
+                    {% for q in site.data.bookmarks.pinned-filters %}
+                    <a class="dropdown-item" href="?q={{ q | uri_escape }}">{{ q }}</a>
                     {% endfor %}
                 </div>
             </li>

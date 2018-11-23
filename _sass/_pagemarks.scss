@@ -58,3 +58,7 @@ div.nav-center {
     position: relative;
     display: flex;
 }
+
+a.disabled {
+    cursor: default;
+}
