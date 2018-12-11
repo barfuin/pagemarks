@@ -13,10 +13,19 @@
 // git diff and ask for confirmation (optional)
 // git push
 
+const packageJson = require('../package.json');
 const cheerio = require('cheerio');
+const cmdline = require('commander');
 const request = require('request');
 const yaml = require('js-yaml');
 const he = require('he');
+
+cmdline
+    .usage('[options] URL')
+    .description('Add a bookmark to your pagemarks collection')
+    .option('-c, --collection [name]', 'Add the bookmark to the collection [name]', 'name')
+    .version('pagemarks.io v' + packageJson.version, '-v, --version')
+    .parse(process.argv);
 
 function date2yaml(pDate) {
     const d = pDate.getDate();
