@@ -22,15 +22,24 @@ const yaml = require('js-yaml');
 
 
 cmdline
-    .usage('[options] <nbmIn> [ymlOut]')
+    .usage('[options] <nbmFile> [ymlOutFile]')
     .description('Convert a Netscape Bookmark File into a pagemarks collection')
-    .option('-p, --include-private', 'Include bookmarks flagged as "private"')
+    .option('-p, --include-private', 'Include bookmarks flagged as \'private\'')
     .version('pagemarks.io v' + packageJson.version, '-v, --version')
     .arguments('<nbmIn> [ymlOut]')
     .action(function(nbmIn, ymlOut) {
+        passedNbmInputFile = nbmIn;
         convert(nbmIn, ymlOut);
     })
     .parse(process.argv);
+
+if (!process.argv.slice(2).length) {
+    cmdline.help();
+}
+if (typeof passedNbmInputFile === 'undefined') {
+    console.error('ERROR: no Netscape Bookmarks File specified');
+    process.exit(1);
+}
 
 
 function convert(inNbmHtmlFile, outYamlFile) {

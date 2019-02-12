@@ -15,7 +15,7 @@
     },
     "license": "GPL-3.0",
     "author": {
-        "name": "Barfuin"
+        "name": "Thomas Jensen"
     },
     "repository": "github:barfuin/pagemarks",
     "scripts": {
