@@ -1,1 +1,0 @@
-@node bm-conv.js %*
