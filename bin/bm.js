@@ -15,8 +15,10 @@
 const cheerio = require('cheerio');
 const cmdline = require('commander');
 const fs = require('fs');
+const git = require('nodegit');
 const he = require('he');
 const packageJson = require('../package.json');
+const path = require('path');
 const request = require('request');
 const shared = require('./shared');
 const yaml = require('js-yaml');
@@ -33,6 +35,7 @@ const yaml = require('js-yaml');
 cmdline
     .usage('[options] <url>')
     .description('Add a bookmark to your pagemarks collection')
+    .option('-b, --git-branch <branch>', 'Update the bookmark collection on the given branch', 'master')
     .option('-c, --collection <name>', 'Add the bookmark to the specified collection', 'bookmarks')
     .option('-d, --dry-run', 'Do not change any files, just show the bookmark entry on the console')
     .version('pagemarks.io v' + packageJson.version, '-v, --version')
@@ -122,6 +125,44 @@ function storeBookmark(pBookmark) {
     if (cmdline.dryRun) {
         console.log(outYaml);
     } else {
+        gitPull();
         //fs.appendFileSync('../_data/' + cmdline.collection + '.yml', '\n' + outYaml);
     }
+}
+
+
+function gitPull() {
+    var repository;
+    const pathToRepo = path.resolve('..');
+    git.Repository.open(pathToRepo).then(function(repo) {
+        git.Branch.lookup(repo, cmdline.gitBranch, git.Branch.BRANCH.LOCAL)
+            .then(function(branch) {
+                    return git.Branch.upstream(branch);
+                },
+                function(unknownBranch) {
+                    console.error('Git ' + unknownBranch);
+                })
+            .then(function(origin) {
+                const remoteBranch = origin.shorthand();
+                console.log('Git: Using branch \'' + cmdline.gitBranch + '\', remote is \''
+                    + remoteBranch + '\'');
+                return remoteBranch;
+            }, function(error) {
+                console.error('Git Error: Could not determine upstream remote name of branch \''
+                    + cmdline.gitBranch + '\'');
+            })
+            .then(function(remoteBranch) {
+                repo.fetchAll({ // FIXME Fails b/c "malformed url"?! WTF
+                    downloadTags: 1
+                }).then(function() {
+                    repo.mergeBranches(cmdline.gitBranch, remoteBranch);
+                }, function(error) {
+                    console.error('Git: Fetch failed: ' + error);
+                });
+            }, function(error) {
+                console.error('Git ' + error);
+            });
+    }, function(error) {
+        console.error('Git Error: Unable to open repository: ' + pathToRepo);
+    });
 }

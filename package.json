@@ -29,6 +29,7 @@
         "he": "1.2.0",
         "jquery": "3.3.1",
         "js-yaml": "3.12.0",
+        "nodegit": "0.24.0",
         "open-iconic": "1.1.1",
         "popper.js": "1.14.3",
         "request": "2.88.0",
